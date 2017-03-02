@@ -1,0 +1,210 @@
+; 0. 准备工作
+; 设置 CapsLock 状态永远为关闭
+SetCapsLockState, AlwaysOff
+
+; 1. CapsLock ---> Esc
+;    {{{
+CapsLock::Send, {ESC}
+;    }}}
+
+; 2. CapsLock + h ---> Left
+;    CapsLock + j ---> Down
+;    CapsLock + k ---> Up
+;    CapsLock + l ---> Right 
+;    {{{
+CapsLock & h::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {Left}                                                 
+    else                                                             
+        Send, +{Left}                                                
+    return                                                           
+}                                                                    
+else 
+{                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{Left}                                                
+    else                                                             
+        Send, +^{Left}                                               
+    return                                                           
+}                                                                    
+return                                                               
+                                
+CapsLock & j::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {Down}                                                 
+    else                                                             
+        Send, +{Down}                                                
+    return                                                           
+}                                                                    
+else 
+{                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{Down}                                                
+    else                                                             
+        Send, +^{Down}                                               
+    return                                                           
+}                                                                    
+return                                                               
+                             
+CapsLock & k::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {Up}                                                   
+    else                                                             
+        Send, +{Up}                                                  
+    return                                                           
+}                                                                    
+else 
+{                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{Up}                                                  
+    else                                                             
+        Send, +^{Up}                                                 
+    return                                                           
+}                                                                    
+return                                                               
+                            
+CapsLock & l::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {Right}                                                
+    else                                                             
+        Send, +{Right}                                               
+    return                                                           
+}                                                                    
+else 
+{                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{Right}                                               
+    else                                                             
+        Send, +^{Right}                                              
+    return                                                           
+}                                                                    
+return                                                               
+;    }}}
+
+; 3. CapsLock + i ---> Home
+;    CapsLock + o ---> End
+;    {{{
+CapsLock & i::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {Home}                                                 
+    else                                                             
+        Send, +{Home}                                                
+    return                                                           
+}                                                                    
+else 
+{                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{Home}                                                
+    else                                                             
+        Send, +^{Home}                                               
+    return                                                           
+}                                                                    
+return                                                               
+                                
+CapsLock & o::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {End}                                                  
+    else                                                             
+        Send, +{End}                                                 
+    return                                                           
+}                                                                    
+else 
+{                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{End}                                                 
+    else                                                             
+        Send, +^{End}                                                
+    return                                                           
+}                                                                    
+return                                                               
+;    }}}
+
+; 4. CapsLock + u ---> PageUp
+;    CapsLock + p ---> PageDown
+;    {{{
+CapsLock & u::                                                       
+if GetKeyState("control") = 0                                        
+{                                                                    
+    if GetKeyState("alt") = 0                                        
+        Send, {PgUp}                                                 
+    else                                                             
+        Send, +{PgUp}                                                
+    return                                                           
+}                                                                    
+else {                                                               
+    if GetKeyState("alt") = 0                                        
+        Send, ^{PgUp}                                               
+    else                                                            
+        Send, +^{PgUp}                                              
+    return                                                          
+}                                                                   
+return                                                              
+                               
+CapsLock & p::                                                      
+if GetKeyState("control") = 0                                       
+{                                                                   
+    if GetKeyState("alt") = 0                                       
+        Send, {PgDn}                                                
+    else                                                            
+        Send, +{PgDn}                                               
+    return                                                          
+}                                                                   
+else {                                                              
+    if GetKeyState("alt") = 0                                       
+        Send, ^{PgDn}                                               
+    else                                                            
+        Send, +^{PgDn}                                              
+    return                                                          
+}                                                                   
+return                                                              
+;    }}}
+
+; 5. CapsLock + w ---> Ctrl + Right
+;    CapsLock + b ---> Ctrl + Left
+;    {{{
+CapsLock & w:: Send, ^{Right}                                       
+CapsLock & b:: Send, ^{Left}  
+;    }}}
+
+; 6. CapsLock + m ---> BackSpace
+;    CapsLock + , ---> Delete
+;    {{{
+CapsLock & m:: Send, {BS}
+CapsLock & n:: Send, {Del} 
+;    }}}
+
+; 7. CapsLock + g ---> 使用谷歌搜索选中内容
+;    {{{
+CapsLock & g:: 
+pressCapsLockGOnce() {
+    Send, ^c
+    Run http://www.google.com/search?q=%clipboard%
+}
+;    }}}
+
+; 8. CapsLock + [ ---> WheelUp
+;    CapsLock + ] ---> WheelDown
+;    {{{
+CapsLock & [:: Send, {WheelUp}
+CapsLock & ]:: Send, {WheelDown}
+;    }}}
+
+; 9. CapsLock + , ---> 上一个选项卡
+;    CapsLock + . ---> 下一个选项卡
+;    {{{
+CapsLock & ,:: Send, ^{PgUp}
+CapsLock & .:: Send, ^{PgDn}
+;    }}}
+
