@@ -3,30 +3,41 @@ SetCapsLockState, AlwaysOff
 $Space:: Send, {Space}
 
 ; 函数
-CtrlShiftAltCompatible(keyname)
-{
+CtrlShiftAltCompatible(keyname, keyarray*) {
     if GetKeyState("Ctrl") = 0
     {
         if GetKeyState("Alt") = 0
         {
             if GetKeyState("Shift") = 0
             {
-                return keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return keyname               
+                else
+                    return keyname
             }
             else
             {
-                return "+" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "+" . keyname
+                else
+                    return keyarray[1]
             }
         }
         else
         {
             if GetKeyState("Shift") = 0
             {
-                return "!" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "!" . keyname
+                else
+                    return keyarray[2]
             }
             else
             {
-                return "!" . "+" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "!" . "+" . keyname
+                else
+                    return keyarray[3]
             }
         }
     }
@@ -36,22 +47,34 @@ CtrlShiftAltCompatible(keyname)
         {
             if GetKeyState("Shift") = 0
             {
-                return "^" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "^" . keyname
+                else
+                    return keyarray[4]
             }
             else
             {
-                return "^" . "+" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "^" . "+" . keyname
+                else
+                    return keyarray[5]
             }
         }
         else
         {
             if GetKeyState("Shift") = 0
             {
-                return "^" . "!" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "^" . "!" . keyname
+                else
+                    return keyarray[6]
             }
             else
             {
-                return "^" . "!" . "+" . keyname
+                if StrLen(keyarray.MaxIndex()) = 0
+                    return "^" . "!" . "+" . keyname
+                else
+                    return keyarray[7]
             }
         }
     }
@@ -59,11 +82,49 @@ CtrlShiftAltCompatible(keyname)
 
 CapsLock & q:: Send !{F4}
 CapsLock & w:: Send % CtrlShiftAltCompatible("#{Up}")
+CapsLock & e:: Send #{`;}
+CapsLock & r:: Send #^!+{r}
+CapsLock & t:: 
+pressCapsLockEOnce() {
+    IfWinExist, ahk_class TTOTAL_CMD
+    {
+        IfWinActive, ahk_class TTOTAL_CMD
+        {
+            WinMinimize ahk_class TTOTAL_CMD
+            return
+        }
+        IfWinNotActive, ahk_class TTOTAL_CMD
+        {
+            WinMaximize ahk_class TTOTAL_CMD
+            return
+        }
+    }
+    IfWinNotExist, ahk_class TTOTAL_CMD
+        Run C:\Users\js\AppData\Local\TotalCMD64\Totalcmd64.exe
+}
 
 CapsLock:: Send, {Esc}
 CapsLock & a:: Send % CtrlShiftAltCompatible("#{Left}")
 CapsLock & s:: Send % CtrlShiftAltCompatible("#{Down}")
 CapsLock & d:: Send % CtrlShiftAltCompatible("#{Right}")
+CapsLock & f::
+pressCapsLockFOnce() {
+    IfWinExist, ahk_class MozillaWindowClass
+    {
+        IfWinActive, ahk_class MozillaWindowClass
+        {
+            WinMinimize ahk_class MozillaWindowClass
+            return
+        }
+        IfWinNotActive, ahk_class MozillaWindowClass
+        {
+            WinMaximize ahk_class MozillaWindowClass
+            return
+        }
+    }
+    IfWinNotExist,
+        Run D:\Software\RunningCheese_Firefox_V8\Firefox\firefox.exe
+}
 CapsLock & g::
 pressCapsLockGOnce() {
     Send ^{c}
@@ -104,6 +165,33 @@ Space & 0:: Send % CtrlShiftAltCompatible("{F10}")
 Space & -:: Send % CtrlShiftAltCompatible("{F11}")
 Space & =:: Send % CtrlShiftAltCompatible("{F12}")
 
+#IfWinActive ahk_class SWT_Window0
+Space & a:: Send % CtrlShiftAltCompatible("!{/}", "", "", "!+{q}{p}")
+Space & b:: Send % CtrlShiftAltCompatible("^+{b}", "", "", "!+{q}{p}")
+Space & c:: Send % CtrlShiftAltCompatible("^{/}", "", "", "!+{q}{p}")
+Space & d:: Send % CtrlShiftAltCompatible("^{d}", "", "", "!+{q}{p}")
+Space & e:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & f:: Send % CtrlShiftAltCompatible("^+{f}", "", "", "!+{q}{p}")
+Space & g:: Send % CtrlShiftAltCompatible("^+{g}", "", "", "!+{q}{p}")
+Space & h:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & i:: Send % CtrlShiftAltCompatible("^+{o}", "", "", "!+{q}{p}")
+Space & j:: Send % CtrlShiftAltCompatible("^{j}", "^+{j}", "", "!+{q}{p}")
+Space & k:: Send % CtrlShiftAltCompatible("^{k}", "^+{k}", "", "!+{q}{p}")
+Space & l:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & m:: Send % CtrlShiftAltCompatible("^{m}", "", "", "!+{q}{p}")
+Space & n:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & o:: Send % CtrlShiftAltCompatible("^{o}", "", "", "!+{q}{p}")
+Space & p:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & q:: Send % CtrlShiftAltCompatible("^{1}", "", "", "!+{q}{p}")
+Space & r:: Send % CtrlShiftAltCompatible("^+{r}", "!+{r}", "", "!+{q}{p}")
+Space & s:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & t:: Send % CtrlShiftAltCompatible("^+{t}", "", "", "!+{q}{p}")
+Space & u:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & v:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & w:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & x:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & y:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & z:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 
 
 
