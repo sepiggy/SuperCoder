@@ -3,6 +3,8 @@ SetCapsLockState, AlwaysOff
 $Space:: Send, {Space}
 
 ; 函数
+; 匹配的快捷键依次为：
+; key, Shift+key, Alt+key, Alt+Shift+key, Ctrl+key, Ctrl+Shift+key，Ctrl+Alt+key, Ctrl+Alt+Shift+key。
 CtrlShiftAltCompatible(keyname, keyarray*) {
     if GetKeyState("Ctrl") = 0
     {
@@ -80,6 +82,7 @@ CtrlShiftAltCompatible(keyname, keyarray*) {
     }
 }
 
+CapsLock & Tab:: Send % CtrlShiftAltCompatible("^{Tab}")
 CapsLock & q:: Send !{F4}
 CapsLock & w:: Send % CtrlShiftAltCompatible("#{Up}")
 CapsLock & e:: Send #{`;}
@@ -147,10 +150,25 @@ CapsLock & k:: Send % CtrlShiftAltCompatible("{Up}")
 CapsLock & l:: Send % CtrlShiftAltCompatible("{Right}")
 CapsLock & `;:: Send % CtrlShiftAltCompatible("{Enter}")
 
-CapsLock & m:: Send % CtrlShiftAltCompatible("{BS}")
 CapsLock & n:: Send % CtrlShiftAltCompatible("{Del}")
+CapsLock & m:: Send % CtrlShiftAltCompatible("{BS}")
 CapsLock & ,:: ShiftAltTab
 CapsLock & .:: AltTab
+CapsLock & Space:: Send #{Space}
+
+$Tab:: Send % CtrlShiftAltCompatible("{Tab}")
+Tab & h:: Send % CtrlShiftAltCompatible("{1}", "", "{!}")
+Tab & j:: Send % CtrlShiftAltCompatible("{2}", "", "{@}")
+Tab & k:: Send % CtrlShiftAltCompatible("{3}", "", "{#}")
+Tab & l:: Send % CtrlShiftAltCompatible("{4}", "", "{$}")
+Tab & y:: Send % CtrlShiftAltCompatible("{5}", "", "{`%}")
+Tab & u:: Send % CtrlShiftAltCompatible("{6}", "", "{^}")
+Tab & i:: Send % CtrlShiftAltCompatible("{7}", "", "{&}")
+Tab & o:: Send % CtrlShiftAltCompatible("{8}", "", "{*}")
+Tab & n:: Send % CtrlShiftAltCompatible("{9}", "", "{(}")
+Tab & m:: Send % CtrlShiftAltCompatible("{0}", "", "{)}")
+Tab & f:: Send % CtrlShiftAltCompatible("{-}", "", "{_}")
+Tab & g:: Send % CtrlShiftAltCompatible("{=}", "", "{+}")
 
 Space & 1:: Send % CtrlShiftAltCompatible("{F1}")
 Space & 2:: Send % CtrlShiftAltCompatible("{F2}")
@@ -179,7 +197,7 @@ Space & j:: Send % CtrlShiftAltCompatible("^{j}", "^+{j}", "", "!+{q}{p}")
 Space & k:: Send % CtrlShiftAltCompatible("^{k}", "^+{k}", "", "!+{q}{p}")
 Space & l:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 Space & m:: Send % CtrlShiftAltCompatible("^{m}", "", "", "!+{q}{p}")
-Space & n:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & n:: Send % CtrlShiftAltCompatible("!+{n}", "", "", "!+{q}{p}")
 Space & o:: Send % CtrlShiftAltCompatible("^{o}", "", "", "!+{q}{p}")
 Space & p:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 Space & q:: Send % CtrlShiftAltCompatible("^{1}", "", "", "!+{q}{p}")
@@ -188,10 +206,11 @@ Space & s:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 Space & t:: Send % CtrlShiftAltCompatible("^+{t}", "", "", "!+{q}{p}")
 Space & u:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 Space & v:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & w:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+Space & w:: Send % CtrlShiftAltCompatible("!+{w}", "", "", "!+{q}{p}")
 Space & x:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 Space & y:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
 Space & z:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+#IfWinActive
 
 
 
