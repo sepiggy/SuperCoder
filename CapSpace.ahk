@@ -1,6 +1,21 @@
-; 设置 CapsLock 状态
-SetCapsLockState, AlwaysOff
+; 初始化
 $Space:: Send, {Space}
+
+RCtrl & F10::
+suspend
+TrayTip, AutoHotKey, Suspend... 
+return
+
+RCtrl & F11:: 
+Edit
+return
+
+RCtrl & F12:: 
+Reload
+TrayTip, AutoHotKey, Reload...
+return
+
+SetCapsLockState, AlwaysOff
 
 ; 函数
 ; 匹配的快捷键依次为：
@@ -157,18 +172,18 @@ CapsLock & .:: AltTab
 CapsLock & Space:: Send #{Space}
 
 $Tab:: Send % CtrlShiftAltCompatible("{Tab}")
-Tab & h:: Send % CtrlShiftAltCompatible("{1}", "", "{!}")
-Tab & j:: Send % CtrlShiftAltCompatible("{2}", "", "{@}")
-Tab & k:: Send % CtrlShiftAltCompatible("{3}", "", "{#}")
-Tab & l:: Send % CtrlShiftAltCompatible("{4}", "", "{$}")
-Tab & y:: Send % CtrlShiftAltCompatible("{5}", "", "{`%}")
-Tab & u:: Send % CtrlShiftAltCompatible("{6}", "", "{^}")
-Tab & i:: Send % CtrlShiftAltCompatible("{7}", "", "{&}")
-Tab & o:: Send % CtrlShiftAltCompatible("{8}", "", "{*}")
-Tab & n:: Send % CtrlShiftAltCompatible("{9}", "", "{(}")
-Tab & m:: Send % CtrlShiftAltCompatible("{0}", "", "{)}")
-Tab & f:: Send % CtrlShiftAltCompatible("{-}", "", "{_}")
-Tab & g:: Send % CtrlShiftAltCompatible("{=}", "", "{+}")
+Tab & h:: Send % CtrlShiftAltCompatible("{1}", "{!}", "")
+Tab & j:: Send % CtrlShiftAltCompatible("{2}", "{@}", "")
+Tab & k:: Send % CtrlShiftAltCompatible("{3}", "{#}", "")
+Tab & l:: Send % CtrlShiftAltCompatible("{4}", "{$}", "")
+Tab & y:: Send % CtrlShiftAltCompatible("{5}", "{`%}", "")
+Tab & u:: Send % CtrlShiftAltCompatible("{6}", "{^}", "")
+Tab & i:: Send % CtrlShiftAltCompatible("{7}", "{&}", "")
+Tab & o:: Send % CtrlShiftAltCompatible("{8}", "{*}", "")
+Tab & n:: Send % CtrlShiftAltCompatible("{9}", "{(}", "")
+Tab & m:: Send % CtrlShiftAltCompatible("{0}", "{)}", "")
+Tab & f:: Send % CtrlShiftAltCompatible("{-}", "{_}", "")
+Tab & g:: Send % CtrlShiftAltCompatible("{=}", "{+}", "")
 
 Space & 1:: Send % CtrlShiftAltCompatible("{F1}")
 Space & 2:: Send % CtrlShiftAltCompatible("{F2}")
@@ -184,32 +199,49 @@ Space & -:: Send % CtrlShiftAltCompatible("{F11}")
 Space & =:: Send % CtrlShiftAltCompatible("{F12}")
 
 #IfWinActive ahk_class SWT_Window0
-Space & a:: Send % CtrlShiftAltCompatible("!{/}", "", "", "!+{q}{p}")
-Space & b:: Send % CtrlShiftAltCompatible("^+{b}", "", "", "!+{q}{p}")
-Space & c:: Send % CtrlShiftAltCompatible("^{/}", "", "", "!+{q}{p}")
-Space & d:: Send % CtrlShiftAltCompatible("^{d}", "", "", "!+{q}{p}")
-Space & e:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & f:: Send % CtrlShiftAltCompatible("^+{f}", "", "", "!+{q}{p}")
-Space & g:: Send % CtrlShiftAltCompatible("^+{g}", "", "", "!+{q}{p}")
-Space & h:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & i:: Send % CtrlShiftAltCompatible("^+{o}", "", "", "!+{q}{p}")
-Space & j:: Send % CtrlShiftAltCompatible("^{j}", "^+{j}", "", "!+{q}{p}")
-Space & k:: Send % CtrlShiftAltCompatible("^{k}", "^+{k}", "", "!+{q}{p}")
-Space & l:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & m:: Send % CtrlShiftAltCompatible("^{m}", "", "", "!+{q}{p}")
-Space & n:: Send % CtrlShiftAltCompatible("!+{n}", "", "", "!+{q}{p}")
-Space & o:: Send % CtrlShiftAltCompatible("^{o}", "", "", "!+{q}{p}")
-Space & p:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & q:: Send % CtrlShiftAltCompatible("^{1}", "", "", "!+{q}{p}")
-Space & r:: Send % CtrlShiftAltCompatible("^+{r}", "!+{r}", "", "!+{q}{p}")
-Space & s:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & t:: Send % CtrlShiftAltCompatible("^+{t}", "", "", "!+{q}{p}")
-Space & u:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & v:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & w:: Send % CtrlShiftAltCompatible("!+{w}", "", "", "!+{q}{p}")
-Space & x:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & y:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
-Space & z:: Send % CtrlShiftAltCompatible("", "", "", "!+{q}{p}")
+; Alt+/：Quick Assist
+Space & a:: Send % CtrlShiftAltCompatible("!{/}", "", "", "")
+; Ctrl+Shift+B：Toggle Breakpoint; Ctrl+Alt+B：Skip All Breakpoints
+Space & b:: Send % CtrlShiftAltCompatible("^+{B}", "", "^!{B}", "")
+; Ctrl+/：对一（多）行注释或取消注释; Alt+Shift+Q,C：Show Console View
+Space & c:: Send % CtrlShiftAltCompatible("^{/}", "", "!+{q}{c}", "")
+; Ctrl+D：删除当前行；F3: Open Declaration
+Space & d:: Send % CtrlShiftAltCompatible("^{D}", "{F3}", "", "", "")
+; F12：Activate Editor
+Space & e:: Send % CtrlShiftAltCompatible("{F12}", "", "!+{W}{X}", "", "^{E}")
+; Ctrl+Shift+F：Format
+Space & f:: Send % CtrlShiftAltCompatible("^+{F}", "", "", "")
+; Ctrl+Shift+G：搜索工作区中该类的引用
+Space & g:: Send % CtrlShiftAltCompatible("^+{G}", "", "", "")
+Space & h:: Send % CtrlShiftAltCompatible("", "", "", "")
+; Ctrl+Shift+O：Organize Imports
+Space & i:: Send % CtrlShiftAltCompatible("^+{O}", "", "", "")
+; Alt+Shift+0：Generate Javadoc; Alt+Shift+X,J：Run As Java Application
+Space & j:: Send % CtrlShiftAltCompatible("!+{0}", "", "!+{X}{J}", "")
+Space & k:: Send % CtrlShiftAltCompatible("", "", "", "")
+; Ctrl+2, L:为本地变量赋值
+Space & l:: Send % CtrlShiftAltCompatible("^{2}{L}", "", "", "")
+; Ctrl+M：编辑窗口最大化
+Space & m:: Send % CtrlShiftAltCompatible("^{M}", "", "", "")
+; Alt+Shit+N：New
+Space & n:: Send % CtrlShiftAltCompatible("!+{N}", "", "", "")
+; Alt+Shift+Q,O：Show Outline View
+Space & o:: Send % CtrlShiftAltCompatible("", "", "!+{Q}{O}", "")
+Space & p:: Send % CtrlShiftAltCompatible("", "", "", "")
+; Ctrl+1：Quick Assist; Ctrl+Q：回到最后一次编辑的地方
+Space & q:: Send % CtrlShiftAltCompatible("^{1}", "", "", "", "^{Q}")
+; Ctrl+Shift+R：打开资源; Alt+Shift+R：重命名
+Space & r:: Send % CtrlShiftAltCompatible("^+{R}", "!+{R}", "", "")
+; Alt+Shift+Q,R：Show Server View
+Space & s:: Send % CtrlShiftAltCompatible("", "", "!+{Q}{R}", "")
+; Ctrl+Shift+T：打开类型
+Space & t:: Send % CtrlShiftAltCompatible("^+{T}", "", "", "")
+Space & u:: Send % CtrlShiftAltCompatible("", "", "", "")
+Space & v:: Send % CtrlShiftAltCompatible("", "", "", "")
+Space & w:: Send % CtrlShiftAltCompatible("!+{W}", "", "", "")
+Space & x:: Send % CtrlShiftAltCompatible("", "", "", "")
+Space & y:: Send % CtrlShiftAltCompatible("", "", "", "")
+Space & z:: Send % CtrlShiftAltCompatible("", "", "", "")
 #IfWinActive
 
 
